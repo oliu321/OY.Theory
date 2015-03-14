@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{492A0108-3341-4221-9C91-397078634D56}</ProjectGuid>
+    <ProjectGuid>{157239F8-9F61-4A06-A784-C69557F03B31}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OY.Theory.Shared</RootNamespace>
-    <AssemblyName>OY.Theory.Shared</AssemblyName>
+    <RootNamespace>OY.Theory.SimplicialComplex</RootNamespace>
+    <AssemblyName>OY.Theory.SimplicialComplex</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,14 +39,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IEdge.cs" />
-    <Compile Include="IRandomGenerator.cs" />
-    <Compile Include="ISimplex.cs" />
-    <Compile Include="ISimplicialComplex.cs" />
-    <Compile Include="ITree.cs" />
-    <Compile Include="IGraph.cs" />
-    <Compile Include="IHyperEdge.cs" />
-    <Compile Include="IHyperGraph.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
