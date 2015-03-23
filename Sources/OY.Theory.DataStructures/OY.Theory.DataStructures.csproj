@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{492A0108-3341-4221-9C91-397078634D56}</ProjectGuid>
+    <ProjectGuid>{34350F20-E78C-4018-9F48-0DA83B56BDBA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OY.Theory.Shared</RootNamespace>
-    <AssemblyName>OY.Theory.Shared</AssemblyName>
+    <RootNamespace>OY.Theory.DataStructures</RootNamespace>
+    <AssemblyName>OY.Theory.DataStructures</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,16 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IEdge.cs" />
-    <Compile Include="IHeap.cs" />
-    <Compile Include="IRandomGenerator.cs" />
-    <Compile Include="ISimplex.cs" />
-    <Compile Include="ISimplicialComplex.cs" />
-    <Compile Include="ITree.cs" />
-    <Compile Include="IGraph.cs" />
-    <Compile Include="IHyperEdge.cs" />
-    <Compile Include="IHyperGraph.cs" />
+    <Compile Include="Heap\BinomialHeap.cs" />
+    <Compile Include="Heap\FibonacciHeap.cs" />
+    <Compile Include="Heap\Radix2Heap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\OY.Theory.Shared\OY.Theory.Shared.csproj">
+      <Project>{492a0108-3341-4221-9c91-397078634d56}</Project>
+      <Name>OY.Theory.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
