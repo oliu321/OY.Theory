@@ -8,6 +8,53 @@ namespace OY.Theory.Misc.Sorting
 {
     public class Sorter
     {
+        public delegate int PickPivot(int[] data, int l, int r);
+        public static int QuickSort(int[] data, int l, int r, PickPivot pivotFunc)
+        {
+            if (l >= r)
+                return 0;
+
+            int p = pivotFunc(data, l, r);
+            ArraySwap(data, l, p);
+            int i = l + 1;
+            for (int j = l + 1; j <= r; ++j)
+            {
+                if (data[j] < data[l])
+                {
+                    ArraySwap(data, j, i++);
+                }
+            }
+            ArraySwap(data, l, i - 1);
+            return r - l + QuickSort(data, l, i - 2, pivotFunc) + QuickSort(data, i, r, pivotFunc);
+        }
+
+        public static void ArraySwap(int[] data, int i, int j)
+        {
+            int t = data[i];
+            data[i] = data[j];
+            data[j] = t;
+        }
+
+        public static int PickFirstPivot(int[] data, int l, int r)
+        {
+            return l;
+        }
+
+        public static int PickLastPivot(int[] data, int l, int r)
+        {
+            return r;
+        }
+
+        public static int PickMedianPivot(int[] data, int l, int r)
+        {
+            int m = (l + r) / 2;
+            if((data[l] <= data[m] && data[m] <= data[r]) || (data[r] <= data[m] && data[m] <= data[l]))
+                return m;
+            else if ((data[m] <= data[l] && data[l] <= data[r]) || (data[r] <= data[l] && data[l] <= data[m]))
+                return l;
+            else
+                return r;
+        }
         public static Tuple<int[], long> MergeSortWithInversionCounting(int[] original)
         {
             if (original.Length <= 1)

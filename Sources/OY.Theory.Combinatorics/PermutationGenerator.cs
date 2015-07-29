@@ -16,7 +16,20 @@ namespace OY.Theory.Combinatorics
     {
         public static int[] GenerateRandomPermutation(int length)
         {
-            return null;
+            int[] result = new int[length];
+            for (int i = 0; i < result.Length; ++i)
+                result[i] = i;
+
+            var random = new Random();
+            for(int i = length - 1; i > 0; --i)
+            {
+                int j = random.Next(i + 1);
+                int t = result[i];
+                result[i] = result[j];
+                result[j] = t;
+            }
+
+            return result;
         }
 
         public static int[] GenerateRandomPermutation(int length, IRandomGenerator randomGenerator)

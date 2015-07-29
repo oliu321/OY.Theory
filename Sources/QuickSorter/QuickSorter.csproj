@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{99B028D6-663E-4A5F-B31C-9D23071B739A}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{020364E1-3AD8-4660-A887-ED7987689B5B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OY.Theory.Graph</RootNamespace>
-    <AssemblyName>OY.Theory.Graph</AssemblyName>
+    <RootNamespace>QuickSorter</RootNamespace>
+    <AssemblyName>QuickSorter</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -39,22 +41,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Basic\NaiveGraphImpl.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OY.Theory.Shared\OY.Theory.Shared.csproj">
-      <Project>{492a0108-3341-4221-9c91-397078634d56}</Project>
-      <Name>OY.Theory.Shared</Name>
-    </ProjectReference>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Matching\" />
-    <Folder Include="MaxFlow\" />
-    <Folder Include="MinCostFlow\" />
-    <Folder Include="MST\" />
-    <Folder Include="Planar\" />
-    <Folder Include="ShortestPath\" />
+    <ProjectReference Include="..\OY.Theory.Misc\OY.Theory.Misc.csproj">
+      <Project>{037f47a8-005a-4e2c-895d-8aa31f466c61}</Project>
+      <Name>OY.Theory.Misc</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

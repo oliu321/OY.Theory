@@ -20,7 +20,7 @@ namespace OY.Theory.DataStructures
             public uint Rank { get; set; }
             public DisjointTreeNode Parent { get; set; }
 
-            protected TElement Value { public get; protected set; }
+            public TElement Value { get; set; }
             public DisjointTreeNode(TElement value)
             {
                 this.Value = value;
