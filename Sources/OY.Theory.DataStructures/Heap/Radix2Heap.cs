@@ -10,8 +10,8 @@ namespace OY.Theory.DataStructures.Heap
     /// <summary>
     /// Regular radix 2 heap used for heap sort
     /// </summary>
-    /// <typeparam name="THeapNode">The node in the heap</typeparam>
-    public class Radix2Heap<THeapNode> : IHeap<THeapNode> where THeapNode : IHeapNode
+    /// <typeparam name="T">The node in the heap</typeparam>
+    public class Radix2Heap<T> : IHeap<T> where T : IComparable<T>
     {
         /// <summary>
         /// Used to make a heap out of an array of data
@@ -34,21 +34,21 @@ namespace OY.Theory.DataStructures.Heap
         /// Heapify the nodes array
         /// </summary>
         /// <param name="nodes">A list of nodes to be heapified</param>
-        public Radix2Heap(THeapNode[] nodes)
+        public Radix2Heap(T[] nodes)
         {
 
         }
-        public IHeap<THeapNode> Insert(THeapNode node)
-        {
-            throw new NotImplementedException();
-        }
-
-        public THeapNode Min()
+        public IHeap<T> Insert(T node)
         {
             throw new NotImplementedException();
         }
 
-        public THeapNode ExtractMin()
+        public T Min()
+        {
+            throw new NotImplementedException();
+        }
+
+        public T ExtractMin()
         {
             throw new NotImplementedException();
         }

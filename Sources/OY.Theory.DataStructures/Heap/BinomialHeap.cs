@@ -10,35 +10,35 @@ namespace OY.Theory.DataStructures.Heap
     /// <summary>
     /// Binomial heap for advanced operations like union
     /// </summary>
-    /// <typeparam name="THeapNode">The node in the heap</typeparam>
-    public class BinomialHeap<THeapNode> : IAdvancedHeap<THeapNode> where THeapNode : IHeapNode
+    /// <typeparam name="T">The node in the heap</typeparam>
+    public class BinomialHeap<T> : IAdvancedHeap<T> where T : IComparable<T>
     {
-        public IHeap<THeapNode> Union(IHeap<THeapNode> heap2)
+        public IHeap<T> Union(IHeap<T> heap2)
         {
             throw new NotImplementedException();
         }
 
-        public IHeap<THeapNode> DecreaseKey(THeapNode node, IComparable newKey)
+        public IHeap<T> DecreaseKey(T node, IComparable newKey)
         {
             throw new NotImplementedException();
         }
 
-        public IHeap<THeapNode> Delete(THeapNode node)
+        public IHeap<T> Delete(T node)
         {
             throw new NotImplementedException();
         }
 
-        public IHeap<THeapNode> Insert(THeapNode node)
+        public IHeap<T> Insert(T node)
         {
             throw new NotImplementedException();
         }
 
-        public THeapNode Min()
+        public T Min()
         {
             throw new NotImplementedException();
         }
 
-        public THeapNode ExtractMin()
+        public T ExtractMin()
         {
             throw new NotImplementedException();
         }
