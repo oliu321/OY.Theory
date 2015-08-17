@@ -15,7 +15,7 @@ namespace OY.Theory.DataStructures.Heap
     public class BinaryHeap2<T> : IHeap<T> where T : IComparable<T>, IHeapLocation
     {
         private int count;
-        private T[] heap;
+        private ResizableArray<T> data;
 
         /// <summary>
         /// We at most support 64M items
@@ -26,24 +26,17 @@ namespace OY.Theory.DataStructures.Heap
         {
             if (i < 0 || i >= this.count)
                 return false;
-            item = this.heap[i];
+            item = this.data[i];
             return true;
         }
 
         private void Swap(int i, int j)
         {
-            T t = heap[i];
-            this.heap[i] = this.heap[j];            
-            this.heap[j] = t;
-            this.heap[i].HeapLocation = i;
-            this.heap[j].HeapLocation = j;
-        }
-
-        private void ExpandArray()
-        {
-            T[] newHeap = new T[heap.Length * 2];
-            Array.Copy(this.heap, newHeap, this.heap.Length);
-            this.heap = newHeap;
+            T t = data[i];
+            this.data[i] = this.data[j];            
+            this.data[j] = t;
+            this.data[i].HeapLocation = i;
+            this.data[j].HeapLocation = j;
         }
 
         private void Sink(int i)
@@ -55,11 +48,11 @@ namespace OY.Theory.DataStructures.Heap
                     return;
 
                 int min = i;
-                if (this.heap[l].CompareTo(this.heap[i]) < 0)
+                if (this.data[l].CompareTo(this.data[i]) < 0)
                     min = l;
 
                 int r = 2 * (i + 1);
-                if (r < this.count && this.heap[r].CompareTo(this.heap[min]) < 0)
+                if (r < this.count && this.data[r].CompareTo(this.data[min]) < 0)
                     min = r;
 
                 if (min == i)
@@ -74,7 +67,7 @@ namespace OY.Theory.DataStructures.Heap
             while (i > 0)
             {
                 int p = (i + 1) / 2 - 1;
-                if (this.heap[p].CompareTo(this.heap[i]) <= 0)
+                if (this.data[p].CompareTo(this.data[i]) <= 0)
                     return i;
                 Swap(i, p);
                 i = p;
@@ -91,30 +84,34 @@ namespace OY.Theory.DataStructures.Heap
             }
         }
 
-        public BinaryHeap2 (ICollection source)
+        public BinaryHeap2 (ICollection<T> source)
         {
             if (source == null)
                 return;
 
             this.count = source.Count;
-            this.heap = new T[source.Count];
-            source.CopyTo(this.heap, 0);
-            for (int i = 0; i < this.count; ++i)
-                this.heap[i].HeapLocation = i;
+            this.data = new ResizableArray<T>(source.Count);
+            int i = 0;
+            foreach (var t in source)
+            {
+                this.data[i] = t;
+                this.data[i].HeapLocation = i;
+                ++i;
+            }
             this.Heapify();
         }
         public BinaryHeap2 (int capacity)
         {
             this.count = 0;
-            heap = new T[capacity];
+            data = new ResizableArray<T>(capacity);
         }
         public BinaryHeap2() : this(16) { }
         public IHeap<T> Insert(T node)
         {
             ++this.count;
-            if (this.count > this.heap.Length)
-                ExpandArray();
-            this.heap[this.count - 1] = node;
+            if (this.count > this.data.Length)
+                this.data.Expand();
+            this.data[this.count - 1] = node;
             node.HeapLocation = this.count - 1;
             BubbleUp(this.count - 1);
 
@@ -124,9 +121,9 @@ namespace OY.Theory.DataStructures.Heap
         public int InsertAndReturnLocation(T node)
         {
             ++this.count;
-            if (this.count > this.heap.Length)
-                ExpandArray();
-            this.heap[this.count - 1] = node;
+            if (this.count > this.data.Length)
+                this.data.Expand();
+            this.data[this.count - 1] = node;
             node.HeapLocation = this.count - 1;
             return BubbleUp(this.count - 1);            
         }
@@ -140,7 +137,7 @@ namespace OY.Theory.DataStructures.Heap
         {
             if (this.count == 0)
                 throw new InvalidOperationException("Empty Queue");
-            return this.heap[0];
+            return this.data[0];
         }
 
         public T ExtractMin()
@@ -150,7 +147,7 @@ namespace OY.Theory.DataStructures.Heap
 
             Swap(0, --this.count);
             Sink(0);
-            return this.heap[count];
+            return this.data[count];
         }        
 
         public int Count()

@@ -7,42 +7,45 @@ using System.Threading.Tasks;
 
 namespace OY.Theory.DataStructures.Stack
 {
-    public class ResizingArrayStack<T> : IEnumerable<T>, ICollection, IEnumerable
+    public class ResizingArrayStack<T> : IStack<T>
     {
+        private int index;
+        private ResizableArray<T> data;
+        public const int DefaultCapacity = 16;
 
-        public void CopyTo(Array array, int index)
+        public ResizingArrayStack(int capacity)
         {
-            throw new NotImplementedException();
+            this.data = new ResizableArray<T>(capacity);
+        }
+        public ResizingArrayStack()
+        {
+            this.data = new ResizableArray<T>();
         }
 
-        public int Count
+        public void Push(T obj)
         {
-            get { throw new NotImplementedException(); }
+            if (index == data.Length)
+                data.Expand();
+            data[index++] = obj;
         }
 
-        public bool IsSynchronized
+        public T Pop()
         {
-            get { throw new NotImplementedException(); }
+            if (index == 0)
+                throw new InvalidOperationException("Empty stack");
+            return data[--index];
         }
 
-        public object SyncRoot
+        public T Peek()
         {
-            get { throw new NotImplementedException(); }
+            if (index == 0)
+                throw new InvalidOperationException("Empty stack");
+            return data[index - 1];
         }
 
-        public IEnumerator GetEnumerator()
+        public bool IsEmpty()
         {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator<T> IEnumerable<T>.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
+            return index == 0;
         }
     }
 }

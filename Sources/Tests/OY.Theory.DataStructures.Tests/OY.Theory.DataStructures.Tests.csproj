@@ -54,6 +54,7 @@
     <Compile Include="DisjointSetsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BinaryHeap2Tests.cs" />
+    <Compile Include="ResizableArrayTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\OY.Theory.Combinatorics\OY.Theory.Combinatorics.csproj">

@@ -45,8 +45,6 @@ namespace OY.Theory.Graph.ShortestPath
 
     public static class DijkstraAlgorithm
     {
-        
-
         public static Dictionary<int, int> Run(DijkstraVertex[] graph, DijkstraVertex source)
         {
             int n = graph.Count();
