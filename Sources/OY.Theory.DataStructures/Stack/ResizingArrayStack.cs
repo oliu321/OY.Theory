@@ -13,6 +13,8 @@ namespace OY.Theory.DataStructures.Stack
         private ResizableArray<T> data;
         public const int DefaultCapacity = 16;
 
+        public int Count { get { return this.index; } }
+
         public ResizingArrayStack(int capacity)
         {
             this.data = new ResizableArray<T>(capacity);
