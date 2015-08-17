@@ -10,5 +10,9 @@ namespace OY.Theory.Shared
     {
         bool IsDirected { get; }
         bool IsMulti { get; }
+
+        TVertex[] GetAllVertex();
+        int GetVertexCount();
+        TEdge GetEdge(TVertex source, TVertex destination);
     }
 }

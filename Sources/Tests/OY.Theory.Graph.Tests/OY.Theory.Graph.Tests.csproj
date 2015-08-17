@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AE9DF492-13AD-4A54-B8EE-4C6B000D0571}</ProjectGuid>
+    <ProjectGuid>{035717F3-9BAF-41E9-B7FD-A220EF52DEDC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OY.Theory.DataStructures.Tests</RootNamespace>
-    <AssemblyName>OY.Theory.DataStructures.Tests</AssemblyName>
+    <RootNamespace>OY.Theory.Graph.Tests</RootNamespace>
+    <AssemblyName>OY.Theory.Graph.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -50,19 +50,13 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="BinaryHeapTests.cs" />
-    <Compile Include="DisjointSetsTests.cs" />
+    <Compile Include="DijkstraTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BinaryHeap2Tests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\OY.Theory.Combinatorics\OY.Theory.Combinatorics.csproj">
-      <Project>{99635c04-4fac-4a59-91ff-6e09e9837e77}</Project>
-      <Name>OY.Theory.Combinatorics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\OY.Theory.DataStructures\OY.Theory.DataStructures.csproj">
-      <Project>{34350f20-e78c-4018-9f48-0da83b56bdba}</Project>
-      <Name>OY.Theory.DataStructures</Name>
+    <ProjectReference Include="..\..\OY.Theory.Graph\OY.Theory.Graph.csproj">
+      <Project>{99b028d6-663e-4a5f-b31c-9d23071b739a}</Project>
+      <Name>OY.Theory.Graph</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\OY.Theory.Shared\OY.Theory.Shared.csproj">
       <Project>{492a0108-3341-4221-9c91-397078634d56}</Project>

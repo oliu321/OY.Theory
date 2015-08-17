@@ -17,7 +17,7 @@ namespace OY.Theory.DataStructures.Tests
             heap = new BinaryHeap<int>(6);
             Assert.AreEqual(0, heap.Count());
             heap = new BinaryHeap<int>(new int[] { 1, 2, 3, 4, 5, 6 });
-            Assert.AreEqual(6, heap.Count());            
+            Assert.AreEqual(6, heap.Count());
         }
 
         [TestMethod]
@@ -31,7 +31,7 @@ namespace OY.Theory.DataStructures.Tests
             heap.Insert(5);
             heap.Insert(6);
             heap.Insert(7);
-            Assert.AreEqual(7, heap.Count()); 
+            Assert.AreEqual(7, heap.Count());
         }
 
         [TestMethod]

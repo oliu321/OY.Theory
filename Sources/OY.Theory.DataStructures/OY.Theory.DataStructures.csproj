@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="DisjointSets.cs" />
     <Compile Include="Heap\BinaryHeap.cs" />
+    <Compile Include="Heap\BinaryHeap2.cs" />
     <Compile Include="Heap\BinomialHeap.cs" />
     <Compile Include="Heap\FibonacciHeap.cs" />
     <Compile Include="Heap\Radix2Heap.cs" />

@@ -8,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace OY.Theory.DataStructures.Heap
 {
-    public class BinaryHeap<T> : IHeap<T> where T : IComparable<T>
+    public interface IHeapLocation
+    {
+        int HeapLocation { get; set; }
+    }
+    public class BinaryHeap2<T> : IHeap<T> where T : IComparable<T>, IHeapLocation
     {
         private int count;
         private T[] heap;
@@ -29,8 +33,10 @@ namespace OY.Theory.DataStructures.Heap
         private void Swap(int i, int j)
         {
             T t = heap[i];
-            this.heap[i] = this.heap[j];
+            this.heap[i] = this.heap[j];            
             this.heap[j] = t;
+            this.heap[i].HeapLocation = i;
+            this.heap[j].HeapLocation = j;
         }
 
         private void ExpandArray()
@@ -42,7 +48,7 @@ namespace OY.Theory.DataStructures.Heap
 
         private void Sink(int i)
         {
-            while (i >= 0 && i < this.count)
+            while(i >= 0 && i < this.count)
             {
                 int l = 2 * (i + 1) - 1;
                 if (l >= this.count)
@@ -63,27 +69,29 @@ namespace OY.Theory.DataStructures.Heap
             }
         }
 
-        private void BubbleUp(int i)
+        private int BubbleUp(int i)
         {
             while (i > 0)
             {
                 int p = (i + 1) / 2 - 1;
                 if (this.heap[p].CompareTo(this.heap[i]) <= 0)
-                    return;
+                    return i;
                 Swap(i, p);
                 i = p;
             }
+
+            return i;
         }
 
         private void Heapify()
         {
-            for (int i = this.count / 2; i >= 0; --i)
+            for(int i = this.count / 2; i >= 0; --i)
             {
                 Sink(i);
             }
         }
 
-        public BinaryHeap(ICollection source)
+        public BinaryHeap2 (ICollection source)
         {
             if (source == null)
                 return;
@@ -91,23 +99,41 @@ namespace OY.Theory.DataStructures.Heap
             this.count = source.Count;
             this.heap = new T[source.Count];
             source.CopyTo(this.heap, 0);
+            for (int i = 0; i < this.count; ++i)
+                this.heap[i].HeapLocation = i;
             this.Heapify();
         }
-        public BinaryHeap(int capacity)
+        public BinaryHeap2 (int capacity)
         {
             this.count = 0;
             heap = new T[capacity];
         }
-        public BinaryHeap() : this(16) { }
+        public BinaryHeap2() : this(16) { }
         public IHeap<T> Insert(T node)
         {
             ++this.count;
             if (this.count > this.heap.Length)
                 ExpandArray();
             this.heap[this.count - 1] = node;
+            node.HeapLocation = this.count - 1;
             BubbleUp(this.count - 1);
 
             return this;
+        }
+
+        public int InsertAndReturnLocation(T node)
+        {
+            ++this.count;
+            if (this.count > this.heap.Length)
+                ExpandArray();
+            this.heap[this.count - 1] = node;
+            node.HeapLocation = this.count - 1;
+            return BubbleUp(this.count - 1);            
+        }
+
+        public int DecreaseValue(int i)
+        {
+            return BubbleUp(i);
         }
 
         public T Min()
@@ -125,7 +151,7 @@ namespace OY.Theory.DataStructures.Heap
             Swap(0, --this.count);
             Sink(0);
             return this.heap[count];
-        }
+        }        
 
         public int Count()
         {
