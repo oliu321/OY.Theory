@@ -19,6 +19,8 @@ namespace OY.Theory.Graph.Basic
         public int Label { get; set; }
         public DepthFirstSearchEdge[] AdjacentVertexEdges { get; set; }
         public DepthFirstSearchVertexColor Color { get; set; }
+        public int VisitedTime { get; set; }
+        public int ParentLabel { get; set; }
     }
     public class DepthFirstSearchEdge : IEdge<DepthFirstSearchVertex>
     {
@@ -31,8 +33,27 @@ namespace OY.Theory.Graph.Basic
 
         public static void Run(DepthFirstSearchVertex[] graph)
         {
-            //IStack<DepthFirstSearchVertex> stack = new ;            
-            //stack.Push(graph[0]);
+            IStack<DepthFirstSearchVertex> stack = new ResizingArrayStack<DepthFirstSearchVertex>(graph.Length);
+            foreach (var v in graph)
+            {
+                if (v.Color == DepthFirstSearchVertexColor.WHITE)
+                {
+                    stack.Push(graph[0]);
+                    while(!stack.IsEmpty())
+                    {
+                        var w = stack.Pop();
+                        w.Color = DepthFirstSearchVertexColor.GRAY;
+                        foreach(var e in w.AdjacentVertexEdges)
+                        {
+                            if (e.Destination.Color == DepthFirstSearchVertexColor.WHITE)
+                            {
+                                e.Destination.ParentLabel = w.Label;
+                                stack.Push(e.Destination);
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -9,6 +9,53 @@ namespace OY.Theory.Misc.Sorting
     public class Sorter
     {
         public delegate int PickPivot(int[] data, int l, int r);
+
+        public static int Partition2(int[] data, int l, int r)
+        {
+            int i = l, j = r + 1;
+            int x = data[l];
+            while(true)
+            {
+                while (data[++i] < x) if (i == r) break;
+                while (x < data[--j]) if (j == l) break;
+                if (i >= j) break;
+                ArraySwap(data, i, j);
+            }
+            ArraySwap(data, l, j);
+            return j;
+        }
+
+        public static Tuple<int, int> ThreeWayPartition(int[] data, int lo, int hi)
+        {
+            if (hi <= lo) return null;
+            int lt = lo, i = lo + 1, gt = hi;
+            int v = data[lo];
+            while (i <= gt)
+            {
+                int cmp = data[i] - v;
+                if (cmp < 0) ArraySwap(data, lt++, i++);
+                else if (cmp > 0) ArraySwap(data, i, gt--);
+                else i++;
+            } // Now a[lo..lt-1] < v = a[lt..gt] < a[gt+1..hi].
+            return new Tuple<int, int>(lt, gt);
+        }
+
+        public static void QuickSort3(int[] data, int l, int r)
+        {
+            if (l <= r)
+                return;
+            var result = ThreeWayPartition(data, l, r);
+            QuickSort3(data, l, result.Item1 - 1);
+            QuickSort3(data, result.Item2 + 1, r);
+        }
+        public static void QuickSort2(int[] data, int l, int r)
+        {
+            if (l <= r)
+                return;
+            int m = Partition2(data, l, r);
+            QuickSort2(data, l, m - 1);
+            QuickSort2(data, m + 1, r);
+        }
         public static int QuickSort(int[] data, int l, int r, PickPivot pivotFunc)
         {
             if (l >= r)
