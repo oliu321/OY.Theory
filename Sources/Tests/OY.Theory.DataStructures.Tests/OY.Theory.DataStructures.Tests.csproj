@@ -67,6 +67,10 @@
       <Project>{34350f20-e78c-4018-9f48-0da83b56bdba}</Project>
       <Name>OY.Theory.DataStructures</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\OY.Theory.Randomized\OY.Theory.Randomized.csproj">
+      <Project>{52d51b40-7416-4a79-ab48-c0bf8f515a0a}</Project>
+      <Name>OY.Theory.Randomized</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\OY.Theory.Shared\OY.Theory.Shared.csproj">
       <Project>{492a0108-3341-4221-9c91-397078634d56}</Project>
       <Name>OY.Theory.Shared</Name>

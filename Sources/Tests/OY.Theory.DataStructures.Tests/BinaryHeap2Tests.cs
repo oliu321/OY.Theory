@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OY.Theory.Shared;
 using OY.Theory.DataStructures.Heap;
-using OY.Theory.Combinatorics;
+using OY.Theory.Randomized;
 
 namespace OY.Theory.DataStructures.Tests
 {
@@ -85,7 +85,7 @@ namespace OY.Theory.DataStructures.Tests
         [TestMethod]
         public void TestBinaryHeap2GeneralUsingRandom()
         {
-            int[] data = PermutationGenerator.GenerateRandomPermutation(23);
+            int[] data = RandomShuffleAlgorithm.GenerateRandomIntArray(23);
             IntHeapNode[] theData = new IntHeapNode[23];
             for (int i = 0; i < 23; ++i)
             {

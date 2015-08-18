@@ -1,5 +1,5 @@
-﻿using OY.Theory.Combinatorics;
-using OY.Theory.DataStructures;
+﻿using OY.Theory.DataStructures;
+using OY.Theory.Randomized;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -36,7 +36,7 @@ namespace KargerMinCut
             }
 
             // random permute the edges, then based on the permutation contract vertices
-            var edges = PermutationGenerator.GenerateRandomPermutation(edgeCount);
+            var edges = RandomShuffleAlgorithm.GenerateRandomIntArray(edgeCount);
             int components = size;
             int cutSize = 0;
             foreach (int e in edges)

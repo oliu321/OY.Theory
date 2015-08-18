@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1E579185-6C2E-4FEB-8391-F3C138309440}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{218280FA-74E0-4D59-B56F-D58B176AB230}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>KargerMinCut</RootNamespace>
-    <AssemblyName>KargerMinCut</AssemblyName>
+    <RootNamespace>OY.Theory.System</RootNamespace>
+    <AssemblyName>OY.Theory.System</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,25 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\OY.Theory.Combinatorics\OY.Theory.Combinatorics.csproj">
-      <Project>{99635c04-4fac-4a59-91ff-6e09e9837e77}</Project>
-      <Name>OY.Theory.Combinatorics</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OY.Theory.DataStructures\OY.Theory.DataStructures.csproj">
-      <Project>{34350f20-e78c-4018-9f48-0da83b56bdba}</Project>
-      <Name>OY.Theory.DataStructures</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\OY.Theory.Randomized\OY.Theory.Randomized.csproj">
-      <Project>{52d51b40-7416-4a79-ab48-c0bf8f515a0a}</Project>
-      <Name>OY.Theory.Randomized</Name>
-    </ProjectReference>
+    <Folder Include="Compiler\" />
+    <Folder Include="Database\" />
+    <Folder Include="OperatingSystem\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
