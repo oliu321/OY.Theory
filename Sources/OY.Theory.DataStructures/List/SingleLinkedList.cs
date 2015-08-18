@@ -46,7 +46,7 @@ namespace OY.Theory.DataStructures.List
             var p = head;
             var q = head.Next;
             int i = 0;
-            while (!q.Data.Equals(item) && q != null)
+            while (q != null && !q.Data.Equals(item))
             {
                 i++;
                 p = q;
