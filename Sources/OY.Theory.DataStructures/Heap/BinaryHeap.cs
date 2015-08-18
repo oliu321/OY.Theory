@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace OY.Theory.DataStructures.Heap
 {
-    public class BinaryHeap<T> : IHeap<T> where T : IComparable<T>
+    public class BinaryHeap<T> : IHeap<T>, IEnumerable<T>
     {
         private int count;
         private ResizableArray<T> data;
+        private IComparer<T> comparer;
 
         /// <summary>
         /// We at most support 64M items
@@ -24,6 +25,18 @@ namespace OY.Theory.DataStructures.Heap
                 return false;
             item = this.data[i];
             return true;
+        }
+
+        private bool Less(int i, int j)
+        {
+            if (this.comparer == null)
+                return ((IComparable<T>)data[i]).CompareTo(data[j]) < 0;
+            return this.comparer.Compare(data[i], data[j]) < 0;
+        }
+
+        private bool Great(int i, int j)
+        {
+            return !this.Less(j, i);
         }
 
         private void Swap(int i, int j)
@@ -42,11 +55,11 @@ namespace OY.Theory.DataStructures.Heap
                     return;
 
                 int min = i;
-                if (this.data[l].CompareTo(this.data[i]) < 0)
+                if (this.Less(l, i))
                     min = l;
 
                 int r = 2 * (i + 1);
-                if (r < this.count && this.data[r].CompareTo(this.data[min]) < 0)
+                if (r < this.count && this.Less(r, min))
                     min = r;
 
                 if (min == i)
@@ -56,12 +69,12 @@ namespace OY.Theory.DataStructures.Heap
             }
         }
 
-        private void BubbleUp(int i)
+        private void Swim(int i)
         {
             while (i > 0)
             {
                 int p = (i + 1) / 2 - 1;
-                if (this.data[p].CompareTo(this.data[i]) <= 0)
+                if (!this.Great(i, p))
                     return;
                 Swap(i, p);
                 i = p;
@@ -76,10 +89,17 @@ namespace OY.Theory.DataStructures.Heap
             }
         }
 
-        public BinaryHeap(ICollection<T> source)
+        public BinaryHeap(ICollection<T> source, IComparer<T> comparer = null)
         {
+            this.comparer = comparer;
+            if (this.comparer == null && !typeof(IComparable<T>).IsAssignableFrom(typeof(T)))
+                throw new ArgumentException("The source is not comparable and there is no comparer");
+
             if (source == null)
+            {
+                this.data = new ResizableArray<T>();
                 return;
+            }
 
             this.count = source.Count;
             this.data = new ResizableArray<T>(source.Count);
@@ -88,8 +108,12 @@ namespace OY.Theory.DataStructures.Heap
                 this.data[i++] = t;
             this.Heapify();
         }
-        public BinaryHeap(int capacity)
+        public BinaryHeap(int capacity, IComparer<T> comparer = null)
         {
+            this.comparer = comparer;
+            if (this.comparer == null && !typeof(IComparable<T>).IsAssignableFrom(typeof(T)))
+                throw new ArgumentException("The source is not comparable and there is no comparer");
+
             this.count = 0;
             data = new ResizableArray<T>(capacity);
         }
@@ -100,7 +124,7 @@ namespace OY.Theory.DataStructures.Heap
             if (this.count > this.data.Length)
                 this.data.Expand();
             this.data[this.count - 1] = node;
-            BubbleUp(this.count - 1);
+            Swim(this.count - 1);
 
             return this;
         }
@@ -125,6 +149,16 @@ namespace OY.Theory.DataStructures.Heap
         public int Count()
         {
             return this.count;
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this.data.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.data.GetEnumerator();
         }
     }
 }

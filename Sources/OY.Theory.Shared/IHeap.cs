@@ -10,7 +10,7 @@ namespace OY.Theory.Shared
     /// The basic heap interface
     /// </summary>
     /// <typeparam name="T">The node in the heap</typeparam>
-    public interface IHeap<T> where T : IComparable<T>
+    public interface IHeap<T>
     {
         /// <summary>
         /// Insert node whose Key field has already been filled in, into the heap

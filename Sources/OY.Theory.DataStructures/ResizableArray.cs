@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OY.Theory.DataStructures
 {
-    public sealed class ResizableArray<T>
+    public sealed class ResizableArray<T> : IEnumerable<T>
     {
         private T[] data;
         public const int DefaultCapacity = 16;
@@ -62,6 +62,16 @@ namespace OY.Theory.DataStructures
                 this.Expand(newCapacity);
             else
                 this.Shrink(newCapacity);  
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return ((IEnumerable<T>)this.data).GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return this.data.GetEnumerator();
         }
     }
 }

@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Bag\" />
+    <Folder Include="BST\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OY.Theory.Shared\OY.Theory.Shared.csproj">

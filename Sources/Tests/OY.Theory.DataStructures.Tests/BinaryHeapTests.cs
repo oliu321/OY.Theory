@@ -38,6 +38,7 @@ namespace OY.Theory.DataStructures.Tests
         public void TestBinaryHeapGeneral()
         {
             var heap = new BinaryHeap<int>(6);
+            Assert.AreEqual(0, heap.Count());
             heap.Insert(7);
             heap.Insert(6);
             heap.Insert(5);
@@ -77,6 +78,33 @@ namespace OY.Theory.DataStructures.Tests
                 Assert.AreEqual(i, heap.ExtractMin());
             }
             Assert.AreEqual(0, heap.Count());
+        }
+
+        [TestMethod]
+        public void TestBinaryHeapEnumerationForInsertion()
+        {
+            int[] dataForInsertionTest = new int[] {94, 88, 87, 72, 49, 25, 36, 14, 30, 28};
+            var heap = new BinaryHeap<int>(dataForInsertionTest, new ReverseComparer2<int>());            
+            Assert.AreEqual(dataForInsertionTest.Length, heap.Count());
+            int count = 0;
+            foreach(var item in heap)
+            {
+                Assert.AreEqual(dataForInsertionTest[count++], item);
+            }
+        }
+
+        [TestMethod]
+        public void TestBinaryHeapEnumerationForExtraction()
+        {
+            int[] dataForExtractionTest = new int[] { 99, 98, 93, 84, 51, 63, 91, 31, 75, 47 };
+            var heap = new BinaryHeap<int>(dataForExtractionTest, new ReverseComparer2<int>());
+            Assert.AreEqual(dataForExtractionTest.Length, heap.Count());
+            Assert.AreEqual(dataForExtractionTest.Length, heap.Count());
+            int count = 0;
+            foreach (var item in heap)
+            {
+                Assert.AreEqual(dataForExtractionTest[count++], item);
+            }
         }
     }
 }
