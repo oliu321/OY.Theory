@@ -5,7 +5,7 @@ using OY.Theory.DataStructures.Stack;
 namespace OY.Theory.DataStructures.Tests
 {
     [TestClass]
-    public class ResizingArrayStackTests
+    public class StackTests
     {
         [TestMethod]
         public void TestResizingArrayStackNormalOperation()

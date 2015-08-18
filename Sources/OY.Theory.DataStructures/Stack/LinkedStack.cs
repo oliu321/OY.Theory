@@ -7,40 +7,24 @@ using System.Threading.Tasks;
 
 namespace OY.Theory.DataStructures.Stack
 {
-    public class LinkedStack<T> : IEnumerable<T>, ICollection, IEnumerable
+    public class LinkedStack<T> : IStack<T>
     {
-
-        public void CopyTo(Array array, int index)
+        public void Push(T obj)
         {
             throw new NotImplementedException();
         }
 
-        public int Count
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public bool IsSynchronized
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public object SyncRoot
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public IEnumerator GetEnumerator()
+        public T Pop()
         {
             throw new NotImplementedException();
         }
 
-        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        public T Peek()
         {
             throw new NotImplementedException();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public bool IsEmpty()
         {
             throw new NotImplementedException();
         }
