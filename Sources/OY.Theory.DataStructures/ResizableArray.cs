@@ -10,6 +10,7 @@ namespace OY.Theory.DataStructures
     {
         private T[] data;
         public const int DefaultCapacity = 16;
+        public delegate void ResizeDetail(T[] oldData, T[] newData);
         public ResizableArray(int capacity)
         {
             this.data = new T[capacity <= 0 ? 1 : capacity];
@@ -29,13 +30,23 @@ namespace OY.Theory.DataStructures
             this.Expand(this.data.Length * 2);
         }
 
+        public void Expand(ResizeDetail resizeDetailFunc)
+        {
+            this.Expand(this.data.Length * 2, resizeDetailFunc);
+        }
+
         public void Expand(int newCapacity)
+        {
+            Expand(newCapacity, (oldData, newData) => { Array.Copy(oldData, newData, oldData.Length); });
+        }
+
+        public void Expand(int newCapacity, ResizeDetail resizeDetailFunc)
         {
             if (newCapacity <= this.data.Length)
                 return;
 
             T[] newData = new T[newCapacity];
-            Array.Copy(this.data, newData, this.data.Length);
+            resizeDetailFunc(this.data, newData);
             this.data = newData;
         }
 
@@ -44,7 +55,17 @@ namespace OY.Theory.DataStructures
             this.Shrink(this.data.Length / 2);
         }
 
+        public void Shrink(ResizeDetail resizeDetailFunc)
+        {
+            this.Shrink(this.data.Length / 2, resizeDetailFunc);
+        }
+
         public void Shrink(int newCapacity)
+        {
+            Shrink(newCapacity, (oldData, newData) => { Array.Copy(oldData, newData, newData.Length); });
+        }
+
+        public void Shrink(int newCapacity, ResizeDetail resizeDetailFunc)
         {
             if (newCapacity >= this.data.Length)
                 return;
@@ -52,7 +73,7 @@ namespace OY.Theory.DataStructures
                 newCapacity = 1;
 
             T[] newData = new T[newCapacity];
-            Array.Copy(this.data, newData, newCapacity);
+            resizeDetailFunc(this.data, newData);
             this.data = newData;
         }
 

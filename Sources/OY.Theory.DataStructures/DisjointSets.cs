@@ -9,8 +9,8 @@ namespace OY.Theory.DataStructures
     /// <summary>
     /// Tarjan's disjoint set implementation
     /// </summary>
-    /// <typeparam name="TElement">Type of element</typeparam>
-    public class DisjointSets<TElement>
+    /// <typeparam name="T">Type of element</typeparam>
+    public class DisjointSets<T>
     {
         /// <summary>
         /// Node to hold a conencted component
@@ -20,8 +20,8 @@ namespace OY.Theory.DataStructures
             public uint Rank { get; set; }
             public DisjointTreeNode Parent { get; set; }
 
-            public TElement Value { get; set; }
-            public DisjointTreeNode(TElement value)
+            public T Value { get; set; }
+            public DisjointTreeNode(T value)
             {
                 this.Value = value;
                 this.Parent = this;
@@ -33,7 +33,7 @@ namespace OY.Theory.DataStructures
         /// </summary>
         /// <param name="x">The element which is going to be a singleton</param>
         /// <returns>The set which has only one element: x</returns>
-        public DisjointTreeNode MakeSet(TElement x)
+        public DisjointTreeNode MakeSet(T x)
         {
             return new DisjointTreeNode(x);
         }

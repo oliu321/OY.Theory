@@ -57,6 +57,7 @@
     <Compile Include="ResizableArrayTests.cs" />
     <Compile Include="StackTests.cs" />
     <Compile Include="ListTests.cs" />
+    <Compile Include="QueueTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\OY.Theory.Combinatorics\OY.Theory.Combinatorics.csproj">

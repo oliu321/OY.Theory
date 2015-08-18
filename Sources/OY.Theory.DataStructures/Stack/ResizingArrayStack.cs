@@ -19,10 +19,7 @@ namespace OY.Theory.DataStructures.Stack
         {
             this.data = new ResizableArray<T>(capacity);
         }
-        public ResizingArrayStack()
-        {
-            this.data = new ResizableArray<T>();
-        }
+        public ResizingArrayStack() : this(DefaultCapacity) { }
 
         public void Push(T obj)
         {
