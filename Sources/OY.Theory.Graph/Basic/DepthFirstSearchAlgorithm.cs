@@ -38,18 +38,26 @@ namespace OY.Theory.Graph.Basic
             {
                 if (v.Color == DepthFirstSearchVertexColor.WHITE)
                 {
-                    stack.Push(graph[0]);
+                    stack.Push(v);
                     while(!stack.IsEmpty())
                     {
                         var w = stack.Pop();
-                        w.Color = DepthFirstSearchVertexColor.GRAY;
-                        foreach(var e in w.AdjacentVertexEdges)
+                        if (w.Color == DepthFirstSearchVertexColor.WHITE)
                         {
-                            if (e.Destination.Color == DepthFirstSearchVertexColor.WHITE)
+                            w.Color = DepthFirstSearchVertexColor.GRAY;
+                            foreach (var e in w.AdjacentVertexEdges)
                             {
-                                e.Destination.ParentLabel = w.Label;
-                                stack.Push(e.Destination);
+                                if (e.Destination.Color == DepthFirstSearchVertexColor.WHITE)
+                                {
+                                    e.Destination.ParentLabel = w.Label;
+                                    stack.Push(e.Destination);
+                                }
                             }
+                        }
+                        else
+                        {
+                            // Has to be GRAY
+                            w.Color = DepthFirstSearchVertexColor.BLACK;                            
                         }
                     }
                 }
