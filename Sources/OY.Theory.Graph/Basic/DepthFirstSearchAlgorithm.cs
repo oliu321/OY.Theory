@@ -47,7 +47,7 @@ namespace OY.Theory.Graph.Basic
                     while(!stack.IsEmpty())
                     {
                         var w = stack.Peek();
-                        int newNodeCnt = 0;
+                        bool hasAChild = false;
                         foreach (var e in w.AdjacentVertexEdges)
                         {
                             if (e.Source == w && e.Destination.Color == DepthFirstSearchVertexColor.WHITE)
@@ -56,12 +56,12 @@ namespace OY.Theory.Graph.Basic
                                 e.Destination.DiscoverTime = ++time;
                                 e.Destination.Color = DepthFirstSearchVertexColor.GRAY;
                                 stack.Push(e.Destination);
-                                ++newNodeCnt;
+                                hasAChild = true;
                                 break;
                             }
                         }
 
-                        if(newNodeCnt == 0)
+                        if(hasAChild)
                         {
                             stack.Pop();
                             w.Color = DepthFirstSearchVertexColor.BLACK;
