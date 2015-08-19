@@ -24,7 +24,7 @@ namespace OY.Theory.DataStructures.Queue
         public void Enqueue(T item)
         {
             if (this.IsFull())
-                data.Expand(ResizeDetail);
+                data.Expand(this.ResizeDetail);
 
             ++this.count;
             this.data[this.tail++] = item;
