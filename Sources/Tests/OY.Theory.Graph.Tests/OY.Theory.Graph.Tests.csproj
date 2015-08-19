@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="DijkstraTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="BasicTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\OY.Theory.Graph\OY.Theory.Graph.csproj">

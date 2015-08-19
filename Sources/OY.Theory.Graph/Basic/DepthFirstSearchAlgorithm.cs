@@ -19,7 +19,9 @@ namespace OY.Theory.Graph.Basic
         public int Label { get; set; }
         public DepthFirstSearchEdge[] AdjacentVertexEdges { get; set; }
         public DepthFirstSearchVertexColor Color { get; set; }
-        public int VisitedTime { get; set; }
+
+        public int DiscoverTime { get; set; }
+        public int FinishTime { get; set; }
         public int ParentLabel { get; set; }
     }
     public class DepthFirstSearchEdge : IEdge<DepthFirstSearchVertex>
@@ -34,30 +36,36 @@ namespace OY.Theory.Graph.Basic
         public static void Run(DepthFirstSearchVertex[] graph)
         {
             IStack<DepthFirstSearchVertex> stack = new ResizingArrayStack<DepthFirstSearchVertex>(graph.Length);
+            int time = 0;
             foreach (var v in graph)
             {
                 if (v.Color == DepthFirstSearchVertexColor.WHITE)
                 {
+                    v.Color = DepthFirstSearchVertexColor.GRAY;
+                    v.DiscoverTime = ++time;
                     stack.Push(v);
                     while(!stack.IsEmpty())
                     {
-                        var w = stack.Pop();
-                        if (w.Color == DepthFirstSearchVertexColor.WHITE)
+                        var w = stack.Peek();
+                        int newNodeCnt = 0;
+                        foreach (var e in w.AdjacentVertexEdges)
                         {
-                            w.Color = DepthFirstSearchVertexColor.GRAY;
-                            foreach (var e in w.AdjacentVertexEdges)
+                            if (e.Source == w && e.Destination.Color == DepthFirstSearchVertexColor.WHITE)
                             {
-                                if (e.Destination.Color == DepthFirstSearchVertexColor.WHITE)
-                                {
-                                    e.Destination.ParentLabel = w.Label;
-                                    stack.Push(e.Destination);
-                                }
+                                e.Destination.ParentLabel = w.Label;
+                                e.Destination.DiscoverTime = ++time;
+                                e.Destination.Color = DepthFirstSearchVertexColor.GRAY;
+                                stack.Push(e.Destination);
+                                ++newNodeCnt;
+                                break;
                             }
                         }
-                        else
+
+                        if(newNodeCnt == 0)
                         {
-                            // Has to be GRAY
-                            w.Color = DepthFirstSearchVertexColor.BLACK;                            
+                            stack.Pop();
+                            w.Color = DepthFirstSearchVertexColor.BLACK;
+                            w.FinishTime = ++time;
                         }
                     }
                 }
