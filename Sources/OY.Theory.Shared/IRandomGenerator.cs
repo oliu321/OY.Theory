@@ -8,6 +8,7 @@ namespace OY.Theory.Shared
 {
     public interface IRandomGenerator
     {
+        int Next();
         int Next(int maxValue);
     }
 }

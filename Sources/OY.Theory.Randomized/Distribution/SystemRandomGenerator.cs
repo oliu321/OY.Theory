@@ -14,6 +14,11 @@ namespace OY.Theory.Randomized.Distribution
         {
             this.r = new Random();
         }
+
+        public int Next()
+        {
+            return r.Next();
+        }
         public int Next(int maxValue)
         {
             return this.r.Next(maxValue);

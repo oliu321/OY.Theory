@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Distribution\IDiscreteDistribution.cs" />
     <Compile Include="Distribution\SystemRandomGenerator.cs" />
+    <Compile Include="Distribution\ThreadSafeRandomGenerator.cs" />
     <Compile Include="Distribution\UniformDiscreteDistribution.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomShuffleAlgorithm.cs" />
