@@ -73,5 +73,28 @@ namespace OY.Theory.DataStructures.Queue
                 Array.Copy(oldData, head, newData, head, tail - head);
             }
         }
+
+
+        public T[] ToArray()
+        {
+            if (this.count == 0)
+                return null;
+
+            var array = new T[this.count];
+            if (this.head < this.tail)
+            {
+                for (int i = this.head; i < this.tail; ++i)
+                    array[i - this.head] = this.data[i];
+            }
+            else
+            {
+                for (int i = this.head; i < this.data.Length; ++i)
+                    array[i - this.head] = this.data[i];
+                for (int i = 0; i < this.tail; ++i)
+                    array[i + this.data.Length - this.head] = this.data[i];
+            }
+
+            return array;
+        }
     }
 }

@@ -35,7 +35,8 @@ namespace OY.Theory.Graph.Tests
                 u, v, w, x, y, z
             };
 
-            DepthFirstSearchAlgorithm.Run(graph);
+            var aglorithm = new DepthFirstSearchAlgorithm();
+            aglorithm.Run(graph);
 
             Assert.AreEqual(1, u.DiscoverTime);
             Assert.AreEqual(8, u.FinishTime);
@@ -96,7 +97,8 @@ namespace OY.Theory.Graph.Tests
                 s, r, t, u, v, w, x, y
             };
 
-            BreadthFirstSearchAlgorithm.Run(graph);
+            var algorithm = new BreadthFirstSearchAlgorithm();
+            algorithm.Run(graph);
 
             Assert.AreEqual(0, s.ParentLabel);
             Assert.AreEqual(0, s.Distance);

@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace OY.Theory.Randomized.Distribution
 {
-    public class SystemRandomGenerator : IRandomGenerator
+    public class DefaultRandomGenerator : IRandomGenerator
     {
         private Random r;
-        public SystemRandomGenerator()
+        public DefaultRandomGenerator()
         {
             this.r = new Random();
         }

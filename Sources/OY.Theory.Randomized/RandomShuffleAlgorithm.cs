@@ -15,7 +15,7 @@ namespace OY.Theory.Randomized
     {
         public static void Shuffle<T>(IList<T> data)
         {
-            Shuffle(data, new SystemRandomGenerator());
+            Shuffle(data, new DefaultRandomGenerator());
         }
 
         public static void Shuffle<T>(IList<T> data, IRandomGenerator randomGenerator)

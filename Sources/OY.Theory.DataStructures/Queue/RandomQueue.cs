@@ -27,5 +27,11 @@ namespace OY.Theory.DataStructures.Queue
         {
             throw new NotImplementedException();
         }
+
+
+        public T[] ToArray()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

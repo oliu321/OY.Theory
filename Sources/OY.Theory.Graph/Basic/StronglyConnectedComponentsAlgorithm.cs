@@ -8,5 +8,6 @@ namespace OY.Theory.Graph.Basic
 {
     public static class StronglyConnectedComponentsAlgorithm
     {
+
     }
 }

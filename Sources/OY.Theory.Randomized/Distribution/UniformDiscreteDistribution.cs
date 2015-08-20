@@ -16,7 +16,7 @@ namespace OY.Theory.Randomized.Distribution
             this.max = max;
             this.rand = rand;
             if (this.rand == null)
-                this.rand = new SystemRandomGenerator();
+                this.rand = new DefaultRandomGenerator();
         }
 
         public int Max

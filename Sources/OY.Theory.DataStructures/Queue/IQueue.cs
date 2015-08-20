@@ -12,5 +12,7 @@ namespace OY.Theory.DataStructures.Queue
         T Dequeue();
         T Peek();
         bool IsEmpty();
+
+        T[] ToArray();
     }
 }
