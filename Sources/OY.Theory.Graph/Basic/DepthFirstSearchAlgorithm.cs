@@ -52,8 +52,18 @@ namespace OY.Theory.Graph.Basic
             this.Vertex = vertex;
         }
     }
+
+    public class DepthFirstSearchVertexStartingNewComponentEventArgs
+    {
+        public DepthFirstSearchVertex Vertex { get; protected set; }
+        public DepthFirstSearchVertexStartingNewComponentEventArgs(DepthFirstSearchVertex vertex)
+        {
+            this.Vertex = vertex;
+        }
+    }
     public class DepthFirstSearchAlgorithm
     {
+        public bool DoReverse { get; set; }
         public static void GenerateGraph(DepthFirstSearchVertex[] vertices, DepthFirstSearchEdge[] edges)
         {
             foreach(var v in vertices)
@@ -72,6 +82,7 @@ namespace OY.Theory.Graph.Basic
 
         public event EventHandler<DepthFirstSearchVertexMarkedAsGrayEventArgs> VertexMarkedAsGray;
         public event EventHandler<DepthFirstSearchVertexMarkedAsBlackEventArgs> VertexMarkedAsBlack;
+        public event EventHandler<DepthFirstSearchVertexStartingNewComponentEventArgs> StartingNewComponent;
         protected void OnVertexMarkedAsGray(DepthFirstSearchVertexMarkedAsGrayEventArgs e)
         {
             EventHandler<DepthFirstSearchVertexMarkedAsGrayEventArgs> temp = Volatile.Read(ref this.VertexMarkedAsGray);
@@ -84,6 +95,12 @@ namespace OY.Theory.Graph.Basic
             if (temp != null)
                 temp(this, e);
         }
+        protected void OnStartingNewComponent(DepthFirstSearchVertexStartingNewComponentEventArgs e)
+        {
+            EventHandler<DepthFirstSearchVertexStartingNewComponentEventArgs> temp = Volatile.Read(ref this.StartingNewComponent);
+            if (temp != null)
+                temp(this, e);
+        }
 
         public void Run(DepthFirstSearchVertex[] graph)
         {
@@ -93,6 +110,7 @@ namespace OY.Theory.Graph.Basic
             {
                 if (v.Color == DepthFirstSearchVertexColor.WHITE)
                 {
+                    OnStartingNewComponent(new DepthFirstSearchVertexStartingNewComponentEventArgs(v));
                     v.Color = DepthFirstSearchVertexColor.GRAY;
                     v.DiscoverTime = ++time;
                     OnVertexMarkedAsGray(new DepthFirstSearchVertexMarkedAsGrayEventArgs(v, null));
@@ -105,15 +123,31 @@ namespace OY.Theory.Graph.Basic
                         {
                             foreach (var e in w.AdjacentVertexEdges)
                             {
-                                if (e.Source == w && e.Destination.Color == DepthFirstSearchVertexColor.WHITE)
+                                if (this.DoReverse)
                                 {
-                                    e.Destination.ParentLabel = w.Label;
-                                    e.Destination.DiscoverTime = ++time;
-                                    e.Destination.Color = DepthFirstSearchVertexColor.GRAY;
-                                    OnVertexMarkedAsGray(new DepthFirstSearchVertexMarkedAsGrayEventArgs(w, e));
-                                    stack.Push(e.Destination);
-                                    hasAChild = true;
-                                    break;
+                                    if (e.Destination == w && e.Source.Color == DepthFirstSearchVertexColor.WHITE)
+                                    {
+                                        e.Source.ParentLabel = w.Label;
+                                        e.Source.DiscoverTime = ++time;
+                                        e.Source.Color = DepthFirstSearchVertexColor.GRAY;
+                                        OnVertexMarkedAsGray(new DepthFirstSearchVertexMarkedAsGrayEventArgs(w, e));
+                                        stack.Push(e.Source);
+                                        hasAChild = true;
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    if (e.Source == w && e.Destination.Color == DepthFirstSearchVertexColor.WHITE)
+                                    {
+                                        e.Destination.ParentLabel = w.Label;
+                                        e.Destination.DiscoverTime = ++time;
+                                        e.Destination.Color = DepthFirstSearchVertexColor.GRAY;
+                                        OnVertexMarkedAsGray(new DepthFirstSearchVertexMarkedAsGrayEventArgs(w, e));
+                                        stack.Push(e.Destination);
+                                        hasAChild = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
