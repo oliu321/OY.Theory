@@ -19,7 +19,7 @@ namespace OY.Theory.Graph.Basic
     public class DepthFirstSearchVertex
     {
         public int Label { get; set; }
-        public DepthFirstSearchEdge[] AdjacentVertexEdges { get; set; }
+        public ICollection<DepthFirstSearchEdge> AdjacentVertexEdges { get; set; }
         public DepthFirstSearchVertexColor Color { get; set; }
 
         public int DiscoverTime { get; set; }
@@ -66,10 +66,23 @@ namespace OY.Theory.Graph.Basic
         public bool DoReverse { get; set; }
         public static void GenerateGraph(DepthFirstSearchVertex[] vertices, IEnumerable<DepthFirstSearchEdge> edges)
         {
-            foreach(var v in vertices)
+            foreach(var e in edges)
+            {
+                if (e.Source.AdjacentVertexEdges == null)
+                    e.Source.AdjacentVertexEdges = new List<DepthFirstSearchEdge>();
+                if (e.Destination.AdjacentVertexEdges == null)
+                    e.Destination.AdjacentVertexEdges = new List<DepthFirstSearchEdge>();
+                e.Source.AdjacentVertexEdges.Add(e);
+                e.Destination.AdjacentVertexEdges.Add(e);
+            }
+        }
+
+        public static void GenerateGraphForBigData(DepthFirstSearchVertex[] vertices, IEnumerable<DepthFirstSearchEdge> edges)
+        {
+            foreach (var v in vertices)
             {
                 ResizingArrayQueue<DepthFirstSearchEdge> adjacent_edges = new ResizingArrayQueue<DepthFirstSearchEdge>();
-                foreach(var e in edges)
+                foreach (var e in edges)
                 {
                     if (e.Source == v || e.Destination == v)
                     {
