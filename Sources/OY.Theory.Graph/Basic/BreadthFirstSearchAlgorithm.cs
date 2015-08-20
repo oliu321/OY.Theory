@@ -30,7 +30,7 @@ namespace OY.Theory.Graph.Basic
         public BreadthFirstSearchVertex Destination { get; set; }
     }
 
-    public class BreadthFirstSearchVertexMarkedAsGrayEventArgs
+    public class BreadthFirstSearchVertexMarkedAsGrayEventArgs : EventArgs
     {
         public BreadthFirstSearchVertex Vertex { get; protected set;} 
         public BreadthFirstSearchEdge Edge { get; protected set;}
@@ -41,7 +41,7 @@ namespace OY.Theory.Graph.Basic
         }
     }
 
-    public class BreadthFirstSearchVertexMarkedAsBlackEventArgs
+    public class BreadthFirstSearchVertexMarkedAsBlackEventArgs : EventArgs
     {
         public BreadthFirstSearchVertex Vertex { get; protected set; }
         public BreadthFirstSearchVertexMarkedAsBlackEventArgs(BreadthFirstSearchVertex vertex)
@@ -52,18 +52,14 @@ namespace OY.Theory.Graph.Basic
     public class BreadthFirstSearchAlgorithm
     {
         public event EventHandler<BreadthFirstSearchVertexMarkedAsGrayEventArgs> VertexMarkedAsGray;
-        public event EventHandler<BreadthFirstSearchVertexMarkedAsBlackEventArgs> VertexMarkedAsWhite;
+        public event EventHandler<BreadthFirstSearchVertexMarkedAsBlackEventArgs> VertexMarkedAsBlack;
         protected void OnVertexMarkedAsGray(BreadthFirstSearchVertexMarkedAsGrayEventArgs e)
         {
-            EventHandler<BreadthFirstSearchVertexMarkedAsGrayEventArgs> temp = Volatile.Read(ref this.VertexMarkedAsGray);
-            if(temp != null)
-                temp(this, e);
+            e.Raise(this, ref this.VertexMarkedAsGray);
         }
         protected void OnVertexMarkedAsBlack(BreadthFirstSearchVertexMarkedAsBlackEventArgs e)
         {
-            EventHandler<BreadthFirstSearchVertexMarkedAsBlackEventArgs> temp = Volatile.Read(ref this.VertexMarkedAsWhite);
-            if (temp != null)
-                temp(this, e);
+            e.Raise(this, ref this.VertexMarkedAsBlack);
         }
         public void Run(BreadthFirstSearchVertex[] graph)
         {

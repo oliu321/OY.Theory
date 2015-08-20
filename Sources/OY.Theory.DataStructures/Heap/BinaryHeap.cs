@@ -117,6 +117,16 @@ namespace OY.Theory.DataStructures.Heap
             this.count = 0;
             data = new ResizableArray<T>(capacity);
         }
+
+        public BinaryHeap(IComparer<T> comparer = null)
+        {
+            this.comparer = comparer;
+            if (this.comparer == null && !typeof(IComparable<T>).IsAssignableFrom(typeof(T)))
+                throw new ArgumentException("The source is not comparable and there is no comparer");
+
+            this.count = 0;
+            data = new ResizableArray<T>(ResizableArray<T>.DefaultCapacity);
+        }
         public BinaryHeap() : this(16) { }
         public IHeap<T> Insert(T node)
         {

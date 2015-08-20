@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{492A0108-3341-4221-9C91-397078634D56}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{6A348734-1669-493E-B7B3-3487FEF7EDF2}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OY.Theory.Shared</RootNamespace>
-    <AssemblyName>OY.Theory.Shared</AssemblyName>
+    <RootNamespace>SCCDemo</RootNamespace>
+    <AssemblyName>SCCDemo</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -39,24 +41,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventArgExtensions.cs" />
-    <Compile Include="IBinaryTreeNode.cs" />
-    <Compile Include="IEdge.cs" />
-    <Compile Include="IHeap.cs" />
-    <Compile Include="InOrderBinaryTreeEnumerator.cs" />
-    <Compile Include="IRandomGenerator.cs" />
-    <Compile Include="ISimplex.cs" />
-    <Compile Include="ISimplicialComplex.cs" />
-    <Compile Include="ITree.cs" />
-    <Compile Include="IGraph.cs" />
-    <Compile Include="IHyperEdge.cs" />
-    <Compile Include="IHyperGraph.cs" />
-    <Compile Include="LevelOrderBinaryTreeEnumerator.cs" />
-    <Compile Include="PostOrderBinaryTreeEnumerator.cs" />
-    <Compile Include="PreOrderBinaryTreeEnumerator.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReverseComparer1.cs" />
-    <Compile Include="ReverseComparer2.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OY.Theory.DataStructures\OY.Theory.DataStructures.csproj">
+      <Project>{34350f20-e78c-4018-9f48-0da83b56bdba}</Project>
+      <Name>OY.Theory.DataStructures</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OY.Theory.Graph\OY.Theory.Graph.csproj">
+      <Project>{99b028d6-663e-4a5f-b31c-9d23071b739a}</Project>
+      <Name>OY.Theory.Graph</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OY.Theory.Shared\OY.Theory.Shared.csproj">
+      <Project>{492a0108-3341-4221-9c91-397078634d56}</Project>
+      <Name>OY.Theory.Shared</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

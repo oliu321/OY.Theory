@@ -33,7 +33,7 @@ namespace OY.Theory.Graph.Basic
         public DepthFirstSearchVertex Destination {get;set;}
     }
 
-    public class DepthFirstSearchVertexMarkedAsGrayEventArgs
+    public class DepthFirstSearchVertexMarkedAsGrayEventArgs : EventArgs
     {
         public DepthFirstSearchVertex Vertex { get; protected set; }
         public DepthFirstSearchEdge Edge { get; protected set; }
@@ -44,7 +44,7 @@ namespace OY.Theory.Graph.Basic
         }
     }
 
-    public class DepthFirstSearchVertexMarkedAsBlackEventArgs
+    public class DepthFirstSearchVertexMarkedAsBlackEventArgs : EventArgs
     {
         public DepthFirstSearchVertex Vertex { get; protected set; }
         public DepthFirstSearchVertexMarkedAsBlackEventArgs(DepthFirstSearchVertex vertex)
@@ -53,7 +53,7 @@ namespace OY.Theory.Graph.Basic
         }
     }
 
-    public class DepthFirstSearchVertexStartingNewComponentEventArgs
+    public class DepthFirstSearchVertexStartingNewComponentEventArgs : EventArgs
     {
         public DepthFirstSearchVertex Vertex { get; protected set; }
         public DepthFirstSearchVertexStartingNewComponentEventArgs(DepthFirstSearchVertex vertex)
@@ -64,7 +64,7 @@ namespace OY.Theory.Graph.Basic
     public class DepthFirstSearchAlgorithm
     {
         public bool DoReverse { get; set; }
-        public static void GenerateGraph(DepthFirstSearchVertex[] vertices, DepthFirstSearchEdge[] edges)
+        public static void GenerateGraph(DepthFirstSearchVertex[] vertices, IEnumerable<DepthFirstSearchEdge> edges)
         {
             foreach(var v in vertices)
             {
@@ -85,21 +85,15 @@ namespace OY.Theory.Graph.Basic
         public event EventHandler<DepthFirstSearchVertexStartingNewComponentEventArgs> StartingNewComponent;
         protected void OnVertexMarkedAsGray(DepthFirstSearchVertexMarkedAsGrayEventArgs e)
         {
-            EventHandler<DepthFirstSearchVertexMarkedAsGrayEventArgs> temp = Volatile.Read(ref this.VertexMarkedAsGray);
-            if (temp != null)
-                temp(this, e);
+            e.Raise(this, ref this.VertexMarkedAsGray);
         }
         protected void OnVertexMarkedAsBlack(DepthFirstSearchVertexMarkedAsBlackEventArgs e)
         {
-            EventHandler<DepthFirstSearchVertexMarkedAsBlackEventArgs> temp = Volatile.Read(ref this.VertexMarkedAsBlack);
-            if (temp != null)
-                temp(this, e);
+            e.Raise(this, ref this.VertexMarkedAsBlack);
         }
         protected void OnStartingNewComponent(DepthFirstSearchVertexStartingNewComponentEventArgs e)
         {
-            EventHandler<DepthFirstSearchVertexStartingNewComponentEventArgs> temp = Volatile.Read(ref this.StartingNewComponent);
-            if (temp != null)
-                temp(this, e);
+            e.Raise(this, ref this.StartingNewComponent);
         }
 
         public void Run(DepthFirstSearchVertex[] graph)

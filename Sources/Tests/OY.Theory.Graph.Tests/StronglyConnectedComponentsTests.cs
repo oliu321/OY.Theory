@@ -37,7 +37,8 @@ namespace OY.Theory.Graph.Tests
             };
             var graph = new StronglyConnectedComponentsAlgorithmVertex[] { a, b, c, d, e, f, g, h };
             DepthFirstSearchAlgorithm.GenerateGraph(graph, edges);
-            StronglyConnectedComponentsAlgorithm.Run(graph);
+            var scc = new StronglyConnectedComponentsAlgorithm();
+            scc.Run(graph);
 
             Assert.AreEqual(a.ComponentId, b.ComponentId);
             Assert.AreEqual(a.ComponentId, e.ComponentId);
