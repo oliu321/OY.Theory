@@ -9,15 +9,106 @@ namespace OY.Theory.DataStructures.BST
 {
     public class NaiveBinarySearchTree<TKey, TValue> : IDictionary<TKey, TValue>
     {
+        public class NaiveBinarySearchTreeNode : IBinaryTreeNode<KeyValuePair<TKey, TValue>>
+        {
+            public IBinaryTreeNode<KeyValuePair<TKey, TValue>> LeftChild
+            {
+                get;
+                set;
+            }
+
+            public IBinaryTreeNode<KeyValuePair<TKey, TValue>> RightChild
+            {
+                get;
+                set;
+            }
+
+            public IBinaryTreeNode<KeyValuePair<TKey, TValue>> Parent
+            {
+                get;
+                set;
+            }
+
+            public KeyValuePair<TKey, TValue> Data
+            {
+                get;
+                set;
+            }
+        }
+
+        protected NaiveBinarySearchTreeNode root;
+        protected IComparer<TKey> comparer;
+
+        private int Compare(TKey lhs, TKey rhs)
+        {
+            if (this.comparer == null)
+                return ((IComparable<TKey>)lhs).CompareTo(rhs);
+            return this.comparer.Compare(lhs, rhs);
+        }
+
+        protected NaiveBinarySearchTreeNode TryGetInternal(TKey key, ref NaiveBinarySearchTreeNode parent)
+        {
+            parent = null;
+            var q = this.root;
+
+            while(q != null)
+            {
+                int cmp = this.Compare(q.Data.Key, key);
+                if (cmp == 0)
+                    return q;
+                else if (cmp < 0)
+                {
+                    parent = q;
+                    q = (NaiveBinarySearchTreeNode)q.LeftChild;
+                }
+                else
+                {
+                    parent = q;
+                    q = (NaiveBinarySearchTreeNode)q.RightChild;
+                }
+            }
+
+            return q;
+        }
         #region IDictionary<TKey, TValue> implementation
         public void Add(TKey key, TValue value)
         {
-            throw new NotImplementedException();
+            if(this.root == null)
+            {
+                this.root = new NaiveBinarySearchTreeNode
+                {
+                    Data = new KeyValuePair<TKey, TValue>(key, value),
+                };
+            }
+
+            NaiveBinarySearchTreeNode parent = null;
+            var q = TryGetInternal(key, ref parent);
+            if (q != null)
+                throw new InvalidOperationException("Key already exists");
+            int cmp = this.Compare(parent.Data.Key, key);
+            if (cmp < 0)
+            {
+                parent.LeftChild = new NaiveBinarySearchTreeNode
+                {
+                    Parent = parent,
+                    Data = new KeyValuePair<TKey,TValue>(key, value),
+                };
+            }
+            else
+            {
+                parent.RightChild = new NaiveBinarySearchTreeNode
+                {
+                    Parent = parent,
+                    Data = new KeyValuePair<TKey, TValue>(key, value),
+                };
+            }
         }
 
         public bool ContainsKey(TKey key)
         {
-            throw new NotImplementedException();
+            NaiveBinarySearchTreeNode parent = null;
+            var q = TryGetInternal(key, ref parent);
+            return q != null;
         }
 
         public ICollection<TKey> Keys

@@ -1,16 +1,17 @@
-﻿using System;
+﻿using OY.Theory.Shared;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OY.Theory.Shared
+namespace OY.Theory.DataStructure
 {
-    public class LevelOrderBinaryTreeEnumerator<T> : IEnumerator<T>
+    public class PostOrderBinaryTreeEnumerator<T> : IEnumerator<T>
     {
         private IBinaryTreeNode<T> root;
         private IBinaryTreeNode<T> current;
-        public LevelOrderBinaryTreeEnumerator(IBinaryTreeNode<T> root)
+        public PostOrderBinaryTreeEnumerator(IBinaryTreeNode<T> root)
         {
             this.root = root;
             this.current = root;
