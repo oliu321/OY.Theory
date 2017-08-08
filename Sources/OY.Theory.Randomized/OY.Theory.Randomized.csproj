@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Distribution\CryptoSafeRandomGenerator.cs" />
     <Compile Include="Distribution\IDiscreteDistribution.cs" />
     <Compile Include="Distribution\DefaultRandomGenerator.cs" />
     <Compile Include="Distribution\ThreadSafeRandomGenerator.cs" />
